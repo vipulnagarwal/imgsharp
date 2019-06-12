@@ -1,0 +1,38 @@
+{
+  "name": "imsharp",
+  "version": "1.0.0",
+  "description": "Image optimization module based on imsharp",
+  "main": "imsharp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsanse/imsharp.git"
+  },
+  "keywords": [
+    "sharp",
+    "iminify",
+    "optimization",
+    "image"
+  ],
+  "author": "Vishal Sanserwal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vsanse/imsharp/issues"
+  },
+  "homepage": "https://github.com/vsanse/imsharp#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.3",
+    "file-type": "^11.1.0",
+    "prompt-confirm": "^2.0.4",
+    "read-chunk": "^3.2.0",
+    "sharp": "^0.22.1",
+    "yargs": "^13.2.4"
+  },
+  "bin": {
+    "imsharp": "./imsharp.js"
+  }
+}
