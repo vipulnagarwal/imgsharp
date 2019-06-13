@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require("fs"),
       path = require("path"),
       yargs = require('yargs'),
@@ -13,7 +14,7 @@ const fs = require("fs"),
 clear();
 console.log(
     chalk.bold.yellow(
-        figlet.textSync("imSharp", { horizontalLayout: "full" })
+        figlet.textSync("imgSharp", { horizontalLayout: "full" })
     )
 );
 
@@ -27,7 +28,7 @@ const argv = yargs
     })
     .option('progressive', {
         alias: 'p',
-        description: 'If want progressive Jpeg (Default:false)',
+        description: 'If want progressive image (Default:false)',
         type: 'boolean'
     })
     .option('outputDir', {
@@ -68,11 +69,11 @@ const outputDir = argv.outputDir,
       inputDir = argv.inputDir,
       inputPath = inputDir?path.join(CURR_DIR, inputDir): CURR_DIR,
       quality  = argv.quality?argv.quality:75,
-      progressive = argv.progressive?argv.progressive:false
+      progressive = argv.progressive?argv.progressive:true
       resize = argv.resize?argv.resize:true,
       minify = argv.minify?argv.minify:false,
-      width = argv.width?argv.width:5,
-      height = argv.height?argv.height:5;
+      width = argv.width?argv.width:'auto',
+      height = argv.height?argv.height:'auto';
 
 function walk(dir, outputPath){
     const filesToWalk = fs.readdirSync(dir);
@@ -81,7 +82,7 @@ function walk(dir, outputPath){
         engines.optimize(dir, outputPath, quality, progressive);
     }
     if(resize){
-        engines.resize5px(dir,outputPath);
+        engines.resize(dir,outputPath, height, width);
     }
     // get next directory
     filesToWalk.forEach(file => {

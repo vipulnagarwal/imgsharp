@@ -21,7 +21,8 @@ class engine {
                 if(imageType==='jpg' || imageType==='jpeg'){
                     sharp(filePath)
                     .jpeg({
-                        progressive: isProgressive
+                        progressive: isProgressive,
+                        quality: imgQuality
                     })
                     .toFile(path.join(outputPath, file))
                     .then(() => {
@@ -45,7 +46,7 @@ class engine {
             }
         })
     }
-    resize5px(imgpath, outputPath){
+    resize(imgpath, outputPath, height, width){
         let minImgPath = path.join(outputPath,'min')
         if(!fs.existsSync(outputPath)){
             fs.mkdirSync(outputPath, { recursive: true });
@@ -56,14 +57,42 @@ class engine {
             const filePath = path.join(imgpath, file);
             const stats = fs.statSync(filePath);
             if (!stats.isDirectory()){
-                sharp(filePath)
-                .resize(5, 5)
-                .toFile(path.join(minImgPath,file))
-                .then(() => {
-                    console.log(
-                        chalk.yellow("Images resized:for dir:", imgpath)
-                    );
-                });
+                if((typeof(height)==='string' && height !== 'auto') || (typeof(width)==='string' && width !== 'auto')){
+                    return false;
+                }
+                else if(height==='auto' && width !== 'auto'){
+                    sharp(filePath)
+                    .resize({width: width})
+                    .toFile(path.join(minImgPath,file))
+                    .then(() => {
+                        console.log(
+                            chalk.yellow("Images resized:for dir:", imgpath)
+                        );
+                    });
+                }
+                else if(height!=='auto' && width === 'auto'){
+                    sharp(filePath)
+                    .resize({height: height})
+                    .toFile(path.join(minImgPath,file))
+                    .then(() => {
+                        console.log(
+                            chalk.yellow("Images resized:for dir:", imgpath)
+                        );
+                    });
+                }
+                else if(height!=='auto' && width!=='auto'){
+                    sharp(filePath)
+                    .resize(width, height)
+                    .toFile(path.join(minImgPath,file))
+                    .then(() => {
+                        console.log(
+                            chalk.yellow("Images resized:for dir:", imgpath)
+                        );
+                    });
+                }
+                else{
+                    return;
+                }
             }
         })
     }
