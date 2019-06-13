@@ -42,7 +42,7 @@ Define images folder name(Default: traverse all sub-directories in current direc
 Default: `true`
 Tells imgsharp if you want resize functionality.
 
-#### --minify or -r
+#### --minify or -m
 Default: `false`
 Tells imgsharp if you want image minification/optimization functionality.
 if true imgsharp will also optimize the images else will continue with basic functionality of resize.
