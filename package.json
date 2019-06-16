@@ -1,6 +1,6 @@
 {
   "name": "imgsharp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Image optimization module based on sharp",
   "main": "index.js",
   "scripts": {
