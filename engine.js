@@ -47,7 +47,7 @@ class engine {
         })
     }
     resize(imgpath, outputPath, height, width){
-        let minImgPath = path.join(outputPath,'min')
+        let minImgPath = path.join(outputPath)
         if(!fs.existsSync(outputPath)){
             fs.mkdirSync(outputPath, { recursive: true });
         }if(!fs.existsSync(minImgPath)){

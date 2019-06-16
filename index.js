@@ -19,7 +19,7 @@ console.log(
 );
 
 const argv = yargs
-    .scriptName('minify')
+    .scriptName('imgsharp')
     .usage('Usage: $0 [options]')
     .option('quality', {
         alias: 'q',
@@ -122,7 +122,7 @@ function start(){
 }
 
 if(!outputDir){
-    console.log(chalk.bold.red("This will replace current images with minified/optimized images."));
+    console.log(chalk.bold.red("This will replace current images with resized/optimized images."));
     const prompt = new confirm(chalk.red("Continue?"));
     prompt.originalDefault = false;
     prompt.run()
