@@ -59,7 +59,11 @@ Define image height to resize to.
 Type: `number`  
 Default: `auto`  
 
+#### --resizeAll or --ra
+If you want to resize all images in folder to specified width or height. If undefined only images greater than specified height or width will be resized
 
+Type: `boolean`
+Default: `false`
 
 ### Development
 
