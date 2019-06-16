@@ -61,11 +61,16 @@ const argv = yargs
         description: 'specify resize height: Default- 5px',
         type: 'number'
     })
+    .option('resizeAll',{
+        alias:'ra',
+        description:'specify wether enlarge if the width or height are already less than the specified dimensions. default: false',
+        type:'boolean'
+    })
     .help()
     .alias('help', 'h')
     .argv;
 
-const outputDir = argv.outputDir,
+const outputDir = argv.outputDir?argv.outputDir:"resized",
       inputDir = argv.inputDir,
       inputPath = inputDir?path.join(CURR_DIR, inputDir): CURR_DIR,
       quality  = argv.quality?argv.quality:75,
@@ -73,7 +78,8 @@ const outputDir = argv.outputDir,
       resize = argv.resize?argv.resize:true,
       minify = argv.minify?argv.minify:false,
       width = argv.width?argv.width:'auto',
-      height = argv.height?argv.height:'auto';
+      height = argv.height?argv.height:'auto',
+      resizeAll = argv.resizeAll?argv.resizeAll:false;
 
 function walk(dir, outputPath){
     const filesToWalk = fs.readdirSync(dir);
@@ -82,7 +88,7 @@ function walk(dir, outputPath){
         engines.optimize(dir, outputPath, quality, progressive);
     }
     if(resize){
-        engines.resize(dir,outputPath, height, width);
+        engines.resize(dir,outputPath, height, width, resizeAll);
     }
     // get next directory
     filesToWalk.forEach(file => {
@@ -121,8 +127,8 @@ function start(){
     }
 }
 
-if(!outputDir){
-    console.log(chalk.bold.red("This will replace current images with resized/optimized images."));
+if(outputDir==='resized'){
+    console.log(chalk.bold.red("No output folder defined. imgSharp will store images in folder 'resized'"));
     const prompt = new confirm(chalk.red("Continue?"));
     prompt.originalDefault = false;
     prompt.run()

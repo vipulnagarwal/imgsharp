@@ -46,7 +46,8 @@ class engine {
             }
         })
     }
-    resize(imgpath, outputPath, height, width){
+    resize(imgpath, outputPath, height, width, resizeAllImgs){
+        let withoutEnlargement = resizeAllImgs?false:true;
         let minImgPath = path.join(outputPath)
         if(!fs.existsSync(outputPath)){
             fs.mkdirSync(outputPath, { recursive: true });
@@ -65,7 +66,9 @@ class engine {
                 }
                 else if(height==='auto' && width !== 'auto'){
                     sharp(filePath)
-                    .resize({width: width})
+                    .resize(width, null, {
+                        withoutEnlargement: withoutEnlargement
+                    }) 
                     .toFile(path.join(minImgPath,file))
                     .then(() => {
                         console.log(
@@ -75,7 +78,9 @@ class engine {
                 }
                 else if(height!=='auto' && width === 'auto'){
                     sharp(filePath)
-                    .resize({height: height})
+                    .resize(null, height,{
+                        withoutEnlargement: withoutEnlargement
+                    })
                     .toFile(path.join(minImgPath,file))
                     .then(() => {
                         console.log(
@@ -85,7 +90,9 @@ class engine {
                 }
                 else if(height!=='auto' && width!=='auto'){
                     sharp(filePath)
-                    .resize(width, height)
+                    .resize(width, height,{
+                        withoutEnlargement: withoutenlargement
+                    })
                     .toFile(path.join(minImgPath,file))
                     .then(() => {
                         console.log(
