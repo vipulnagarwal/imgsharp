@@ -58,7 +58,9 @@ class engine {
             const stats = fs.statSync(filePath);
             if (!stats.isDirectory()){
                 if((typeof(height)==='string' && height !== 'auto') || (typeof(width)==='string' && width !== 'auto')){
-                    chalk.red("Invalid height or width defined hence no image will be resized")
+                    console.log(
+                     chalk.red("Invalid height or width defined hence no image will be resized")
+                    );
                     return false;
                 }
                 else if(height==='auto' && width !== 'auto'){
@@ -92,7 +94,9 @@ class engine {
                     });
                 }
                 else{
-                    chalk.red("No height or width defined hence no image will be resized")
+                    console.log(
+                     chalk.red("No height or width defined hence no image will be resized")
+                    );
                     return;
                 }
             }
